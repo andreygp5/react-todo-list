@@ -1,0 +1,44 @@
+.square-button {
+  all: unset;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 45px;
+  height: 45px;
+
+  border-radius: 10px;
+
+  transition: 0.3s;
+  cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    min-width: 35px;
+    height: 35px;
+
+    border-radius: 5px;
+  }
+
+  &_blue {
+    background-color: #66acdb;
+  }
+
+  &_red {
+    background-color: #f07576;
+  }
+
+  &_green {
+    background-color: #7ff075;
+  }
+
+  &:hover {
+    transform: scale(0.97);
+    transition: 0.3s;
+  }
+
+  &:active {
+    transform: scale(1);
+    transition: 0.1s;
+  }
+}
