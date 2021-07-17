@@ -13,6 +13,7 @@ export interface ItemProps {
   _id: string;
   message: string;
   completed: boolean;
+
   deleteHandler(id: string): void;
 }
 

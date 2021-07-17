@@ -14,6 +14,8 @@ const TodoManager = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [pagesAmount, setPagesAmount] = useState(1);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const deleteTodoHandler = async (_id: string) => {
     await deleteTodo(_id);
     setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== _id));
@@ -30,10 +32,14 @@ const TodoManager = () => {
 
   useEffect(() => {
     const getTodos = async () => {
+      setIsLoading(true);
+
       const todosWithInfo = await getTodosPageLimit(pageNumber, TODOS_PAGE_LIMIT);
 
       setTodos(todosWithInfo.todos);
       setPagesAmount(todosWithInfo.info.pagesAmount);
+
+      setIsLoading(false);
     };
 
     getTodos();
@@ -51,6 +57,7 @@ const TodoManager = () => {
       <List
         todosList={todos}
         itemsLimit={TODOS_PAGE_LIMIT}
+        isLoading={isLoading}
         deleteTodoHandler={deleteTodoHandler}
       />
       {todos.length === 0 ? null : (

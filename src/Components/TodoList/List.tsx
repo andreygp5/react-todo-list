@@ -1,3 +1,5 @@
+import ReactLoading from 'react-loading';
+
 import { ITodoItem } from '../../Types/ITodoItem';
 import Item from './Item';
 
@@ -6,12 +8,27 @@ import './List.scss';
 export interface ListProps {
   todosList: ITodoItem[];
   itemsLimit: number;
+  isLoading: boolean;
+
   deleteTodoHandler(id: string): void;
 }
 
-const List = ({ todosList, itemsLimit, deleteTodoHandler }: ListProps) => {
-  const itemHeight = 86;
+const List = ({ todosList, isLoading, deleteTodoHandler }: ListProps) => {
   const isEmpty = todosList.length === 0;
+
+  if (isLoading) {
+    return (
+      <ul className="todo-list">
+        <li className="todo-list__placeholder">
+          <ReactLoading
+            type="bubbles"
+            color="#000000"
+            className="todo-list__loading"
+          />
+        </li>
+      </ul>
+    );
+  }
 
   if (isEmpty) {
     return (
@@ -24,7 +41,7 @@ const List = ({ todosList, itemsLimit, deleteTodoHandler }: ListProps) => {
   }
 
   return (
-    <ul className="todo-list" style={{ minHeight: `${itemHeight * itemsLimit}px` }}>
+    <ul className="todo-list">
       {
         todosList.map((todo) => {
           const { _id, message, completed } = todo;
